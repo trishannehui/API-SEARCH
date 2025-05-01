@@ -5,7 +5,7 @@ const BASE_URL = "https://openlibrary.org/search.json";
 
 const BookSearch = () => {
   const [books, setBooks] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("self");
+  const [searchQuery, setSearchQuery] = useState("Alice in Wonderland");
   const [page, setPage] = useState(1);
   const [sortOrder, setSortOrder] = useState("asc");
   const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ const BookSearch = () => {
         ...new Set(mappedBooks.map((b) => b.date).filter((y) => y !== "N/A")),
       ]);
 
-      setBooks(mappedBooks);
+      setBooks(mappedBooks.filter((book) => book.coverId));
     } catch (err) {
       setError("Failed to fetch books. Please try again.");
     } finally {
@@ -70,7 +70,7 @@ const BookSearch = () => {
 
   return (
     <div className="container">
-      <h1>📚 Book Finder App</h1>
+      <h1>📚 Book Finder </h1>
 
       <form onSubmit={handleSearch} className="search-form">
         <input
